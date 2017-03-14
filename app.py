@@ -49,9 +49,6 @@ def upload_image():
     file (file): the image's binary data
     '''
 
-    print(request.form['name'])
-    print(request.form['target'])
-
     if 'file' not in request.files:
         return ERR_NO_FILE_SPECIFIED
 
@@ -62,15 +59,16 @@ def upload_image():
 
     safefilename = secure_filename(randstr() + '-' + imgfile.filename)
     imgpath = '{}/{}'.format(IMAGE_DIR, safefilename)
-    imgfile.save(imgpath)
 
     target = request.form['target']
-    print("HEEEEY {}".format(target))
     add_image({
         'name': request.form['name'],
         'img_filename' : safefilename if target == 'file' else None,
         'img_data' : imgfile.read() if target == 'db' else None,
     })
+    if target == 'file':
+        imgfile.save(imgpath)
+    
     flash('New image "{}" created.'.format(request.form['name']))
     return redirect(url_for('show_form'))
 
