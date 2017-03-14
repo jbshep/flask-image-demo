@@ -1,0 +1,11 @@
+#main-content {
+    margin-top: 80px;
+}
+
+#main-content, #footer {
+    margin-left: 20px;
+}
+
+#footer {
+    margin-top: 40px;
+}

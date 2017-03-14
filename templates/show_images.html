@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}Images{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+
+  <h3>Stored Images - {{ target }}</h3>
+
+  <a class="btn-sm btn-primary" href="{{url_for('upload_image')}}">Upload Image</a>
+
+  <ul id="images-list">
+  {% for image in images %}
+    <li>
+      <p>{{ image['name'] }}</p>
+      {% if target == 'file' %}
+      <p><img src="/static/images/{{ image['img_filename'] }}"></p>
+      {% else %}
+      <p><img src="{{url_for('get_image_from_db', the_id=image['id'])}}"></p>
+      {% endif %}
+    </li>
+  {% endfor %}
+  </ul>
+
+{% endblock %}

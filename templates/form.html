@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block title %}Add an Image{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+
+<h3>Add an item</h3>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul id="messages" class="alert alert-success" role="alert">
+  {% for message in messages %}
+    <li>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+<form id="add-image-form" method="POST" action="{{url_for('upload_image')}}"
+    enctype="multipart/form-data">
+  <div id="group-name" class="form-group">
+      <label for="in-name">Name</label>
+      <input type="text" class="form-control" id="in-name"
+        name="name" placeholder="Name">
+  </div>
+  <div id="group-target" class="form-group">
+      <div class="btn-group" data-toggle="buttons">
+          <label class="btn btn-primary active">
+              <input type="radio" name="target" value="db" autocomplete="off" checked> DB
+          </label>
+          <label class="btn btn-primary">
+              <input type="radio" name="target" value="file" autocomplete="off"> File
+          </label>
+      </div>
+  </div>
+  <div id="group-file" class="form-group">
+      <label for="in-file">Image</label>
+      <input type="file" class="form-control" id="in-file" name="file">
+  </div>
+  <button id="btn-submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}
