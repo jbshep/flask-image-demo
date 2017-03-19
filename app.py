@@ -68,7 +68,7 @@ def upload_image():
     })
     if target == 'file':
         imgfile.save(imgpath)
-    
+
     flash('New image "{}" created.'.format(request.form['name']))
     return redirect(url_for('show_form'))
 
